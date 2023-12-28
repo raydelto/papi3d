@@ -31,6 +31,7 @@ extern FP SIN[360];
 
 s16 main(void)
 {
+    u8 view=0;
 	u8 frameComplete=0;
 	s16 quit=0;
 	SDL_Window *window=NULL;
@@ -77,6 +78,12 @@ s16 main(void)
                         p.dx=COS[p.angle%360];
                         p.dy=SIN[p.angle%360];
                         break;
+                    case SDLK_e:
+                        view^=0x01;
+                        break;
+                    case SDLK_q:
+                        quit=1;
+                        break;
                     default:
                         break;
                 }			
@@ -86,10 +93,14 @@ s16 main(void)
         clearSreen(surface);
  
         start=SDL_GetTicks();
-        //drawMap(surface, map);
-        //drawPlayer(surface, &p);  
-        drawFloorCeiling(surface); 
-        drawRays(surface, &p, map);
+        if(view) {
+            drawMap(surface, map);
+            drawPlayer(surface, &p); 
+        } else { 
+            drawFloorCeiling(surface); 
+        }
+        drawRays(surface, &p, map, view);
+        
         end=SDL_GetTicks();
         SDL_UpdateWindowSurface(window);
         SDL_Delay(16-(start-end));       

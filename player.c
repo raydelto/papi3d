@@ -28,7 +28,7 @@ void drawPlayer(SDL_Surface *surface, PLAYER *p)
     }
 }
 
-void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20])
+void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
 {
     u8 hit=0, side=0;
     FP stepX, stepY;
@@ -93,22 +93,25 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20])
                 hit=1;            
         }
 
-        // drawLine(surface, FP_TO_INT(p->xpos), FP_TO_INT(p->ypos), 
-        //        (FP_TO_INT(p->xpos) + FP_TO_INT(MUL_FP(rDirX, rayDistance*BOX_X_SIZE))), 
-        //        (FP_TO_INT(p->ypos) + FP_TO_INT(MUL_FP(rDirY, rayDistance*BOX_Y_SIZE))), 
-        //        0x00FFFF00);
-        lHeight=DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), rayDistance);
-        lStart=FP_TO_INT(DIV_FP(-lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));        
-        lEnd=FP_TO_INT(DIV_FP(lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));
-        if(lStart < 0) 
-            lStart = 0;
-        if(lEnd >= SCREEN_HEIGHT-1) 
-            lEnd = SCREEN_HEIGHT - 1;
- 
-        R=FLOAT_TO_FP(0x1FF); G=FLOAT_TO_FP(0x1FF); B=FLOAT_TO_FP(0x1FF);
-        R=DIV_FP(R, rayDistance); G=DIV_FP(G, rayDistance); B=DIV_FP(B, rayDistance);
+        if(view) {
+             drawLine(surface, FP_TO_INT(p->xpos), FP_TO_INT(p->ypos), 
+                    (FP_TO_INT(p->xpos) + FP_TO_INT(MUL_FP(rDirX, rayDistance*BOX_X_SIZE))), 
+                    (FP_TO_INT(p->ypos) + FP_TO_INT(MUL_FP(rDirY, rayDistance*BOX_Y_SIZE))), 
+                    0x00FFFF00);
+        } else {
+            lHeight=DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), rayDistance);
+            lStart=FP_TO_INT(DIV_FP(-lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));        
+            lEnd=FP_TO_INT(DIV_FP(lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));
+            if(lStart < 0) 
+                lStart = 0;
+            if(lEnd >= SCREEN_HEIGHT-1) 
+                lEnd = SCREEN_HEIGHT - 1;
+    
+            R=FLOAT_TO_FP(0x1FF); G=FLOAT_TO_FP(0x1FF); B=FLOAT_TO_FP(0x1FF);
+            R=DIV_FP(R, rayDistance); G=DIV_FP(G, rayDistance); B=DIV_FP(B, rayDistance);
 
-        drawVertLine(surface, i, lStart, lEnd, (FP_TO_INT(R)<<16)+(FP_TO_INT(G)<<8)+FP_TO_INT(B));
+            drawVertLine(surface, i, lStart, lEnd, (FP_TO_INT(R)<<16)+(FP_TO_INT(G)<<8)+FP_TO_INT(B));
+        }
         i++;
     }
 }

@@ -14,5 +14,5 @@ typedef struct pl PLAYER;
 
 void initPlayer(PLAYER *p);
 void drawPlayer(SDL_Surface *surface, PLAYER *p);
-void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20]);
+void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view);
 void drawFloorCeiling(SDL_Surface *surface);

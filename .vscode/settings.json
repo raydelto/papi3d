@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "sdl.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
+    },
+    "debug.console.fontSize": 10,
+    "terminal.integrated.fontSize": 10
+}

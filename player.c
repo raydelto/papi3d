@@ -13,9 +13,8 @@ extern FP SIN[360];
 void initPlayer(PLAYER *p)
 {
     p->dx=FLOAT_TO_FP(1); p->dy=FLOAT_TO_FP(0);
-    //p->dx=FLOAT_TO_FP(-1); p->dy=FLOAT_TO_FP(0);
     p->xpos=FLOAT_TO_FP(100); p->ypos=FLOAT_TO_FP(300);
-    p->angle=45;
+    p->angle=0;
     p->fov=66;
 }
 
@@ -94,7 +93,7 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20])
                 hit=1;            
         }
 
-        //drawLine(surface, FP_TO_INT(p->xpos), FP_TO_INT(p->ypos), 
+        // drawLine(surface, FP_TO_INT(p->xpos), FP_TO_INT(p->ypos), 
         //        (FP_TO_INT(p->xpos) + FP_TO_INT(MUL_FP(rDirX, rayDistance*BOX_X_SIZE))), 
         //        (FP_TO_INT(p->ypos) + FP_TO_INT(MUL_FP(rDirY, rayDistance*BOX_Y_SIZE))), 
         //        0x00FFFF00);

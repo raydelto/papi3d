@@ -62,14 +62,20 @@ s16 main(void)
 
                         break;
                     case SDLK_a:
-                        p.angle+=1;
-                        if(p.angle>=360)
-                            p.angle=0;
+                        p.angle-=1;
+                        //if(p.angle>=360)
+                        //    p.angle=0;
+
+                        p.dx=COS[p.angle%360];
+                        p.dy=SIN[p.angle%360];
                         break;
                     case SDLK_d:
-                        p.angle-=1;
-                        if(p.angle>=360)
-                            p.angle=359;
+                        p.angle+=1;
+                        //if(p.angle>=360)
+                        //    p.angle=359;
+
+                        p.dx=COS[p.angle%360];
+                        p.dy=SIN[p.angle%360];
                         break;
                     default:
                         break;
@@ -86,8 +92,7 @@ s16 main(void)
         drawRays(surface, &p, map);
         end=SDL_GetTicks();
         SDL_UpdateWindowSurface(window);
-        SDL_Delay(16-(start-end));
-        //printf("%d\n", end-start);        
+        SDL_Delay(16-(start-end));       
 	}
 
 	SDL_Quit();

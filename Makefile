@@ -29,7 +29,7 @@ all:
 	gcc -c $(SRC) $(INCLUDES) $(WARNINGS)
 	ls bin>/dev/null||mkdir bin
 	mv *.o ./bin
-	gcc src/fps.c $(OBJ) $(LIBS) $(INCLUDES) -o bin/main $(WARNINGS)
+	gcc src/fps.c $(OBJ) $(LIBS) $(INCLUDES) -o bin/fps $(WARNINGS)
 clean:
 	rm -rf *.o fps
 	rm -rf bin

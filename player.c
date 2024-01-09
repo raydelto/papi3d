@@ -14,8 +14,8 @@ void initPlayer(PLAYER *p)
 {
     p->dx=FLOAT_TO_FP(1); p->dy=FLOAT_TO_FP(0);
     p->xpos=FLOAT_TO_FP(100); p->ypos=FLOAT_TO_FP(300);
+    p->camX=0; p->camY=FLOAT_TO_FP(0.7);
     p->angle=0;
-    p->fov=66;
 }
 
 void drawPlayer(SDL_Surface *surface, PLAYER *p)
@@ -37,7 +37,7 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
     FP tileX, tileY;                                        // Tile coordinate of player position
     FP pPosX=DIV_FP(p->xpos, FLOAT_TO_FP(BOX_X_SIZE));      // Exact position within tile
     FP pPosY=DIV_FP(p->ypos, FLOAT_TO_FP(BOX_Y_SIZE));
-    FP cPlaneX=0, cPlaneY=FLOAT_TO_FP(0.7);
+    FP cPlaneX=p->camX, cPlaneY=p->camY;
     FP rDirX, pDirX=p->dx;
     FP rDirY, pDirY=p->dy;
     FP rayDistance;
@@ -56,8 +56,12 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
         rDirX=pDirX+MUL_FP(cPlaneX, cDist);
         rDirY=pDirY+MUL_FP(cPlaneY, cDist);
 
-        tileDeltaX = rDirX==0 ? FLOAT_TO_FP(100e6) : abs(DIV_FP(FLOAT_TO_FP(1), rDirX));
-        tileDeltaY = rDirY==0 ? FLOAT_TO_FP(100e6) : abs(DIV_FP(FLOAT_TO_FP(1), rDirY));
+        // Prevent division by Zero when calculating the deltas.
+        rDirX = rDirX==0 ? FLOAT_TO_FP(0.001) : rDirX;
+        rDirY = rDirY==0 ? FLOAT_TO_FP(0.001) : rDirY;
+
+        tileDeltaX = abs(DIV_FP(FLOAT_TO_FP(1), rDirX));
+        tileDeltaY = abs(DIV_FP(FLOAT_TO_FP(1), rDirY));
 
         if(rDirX<0) {
             stepX=FLOAT_TO_FP(-1);
@@ -109,6 +113,13 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
     
             R=FLOAT_TO_FP(0x1FF); G=FLOAT_TO_FP(0x1FF); B=FLOAT_TO_FP(0x1FF);
             R=DIV_FP(R, rayDistance); G=DIV_FP(G, rayDistance); B=DIV_FP(B, rayDistance);
+
+            if(FP_TO_INT(R)>0xFF) 
+                R=FLOAT_TO_FP(0xFF);
+            if(FP_TO_INT(G)>0xFF)
+                G=FLOAT_TO_FP(0xFF);
+            if(FP_TO_INT(B)>0xFF)
+                B=FLOAT_TO_FP(0xFF);     
 
             drawVertLine(surface, i, lStart, lEnd, (FP_TO_INT(R)<<16)+(FP_TO_INT(G)<<8)+FP_TO_INT(B));
         }

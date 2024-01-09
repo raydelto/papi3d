@@ -7,7 +7,7 @@ struct pl {
     FP xpos, ypos;
     FP dx, dy;
     s16 angle;
-    s8 fov;
+    FP camX, camY;
 };
 
 typedef struct pl PLAYER;

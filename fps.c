@@ -57,26 +57,26 @@ s16 main(void)
 			if(e.type==SDL_KEYDOWN) {
                 switch(e.key.keysym.sym) {
                     case SDLK_w:
-
+                        p.xpos+=MUL_FP(p.dx, COS[p.angle%360]);
+                        p.ypos+=MUL_FP(p.dy, SIN[p.angle%360]);                      
                         break;
                     case SDLK_s:
-
+                        p.xpos-=MUL_FP(p.dx, COS[p.angle%360]);
+                        p.ypos-=MUL_FP(p.dy, SIN[p.angle%360]); 
                         break;
                     case SDLK_a:
                         p.angle-=1;
-                        //if(p.angle>=360)
-                        //    p.angle=0;
-
                         p.dx=COS[p.angle%360];
                         p.dy=SIN[p.angle%360];
+                        p.camX=MUL_FP(COS[(p.angle+90)%360], FLOAT_TO_FP(0.7));
+                        p.camY=MUL_FP(SIN[(p.angle+90)%360], FLOAT_TO_FP(0.7));
                         break;
                     case SDLK_d:
                         p.angle+=1;
-                        //if(p.angle>=360)
-                        //    p.angle=359;
-
                         p.dx=COS[p.angle%360];
                         p.dy=SIN[p.angle%360];
+                        p.camX=MUL_FP(COS[(p.angle+90)%360], FLOAT_TO_FP(0.7));
+                        p.camY=MUL_FP(SIN[(p.angle+90)%360], FLOAT_TO_FP(0.7));                      
                         break;
                     case SDLK_e:
                         view^=0x01;
@@ -88,7 +88,9 @@ s16 main(void)
                         break;
                 }			
 			}
-        }
+        }      
+        //printf("Camera Plane: %d %f %f\n", p.angle, FP_TO_FLOAT(p.camX), FP_TO_FLOAT(p.camY));
+        //printf("Player Direction %d %f %f\n", p.angle, FP_TO_FLOAT(p.dx), FP_TO_FLOAT(p.dy));
 
         clearSreen(surface);
  

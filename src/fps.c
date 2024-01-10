@@ -29,7 +29,7 @@ u8 map [15][20] = {
 extern FP COS[360];
 extern FP SIN[360];
 
-s16 main(void)
+s32 main(void)
 {
     u8 view=0;
 	u8 frameComplete=0;

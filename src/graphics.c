@@ -22,8 +22,8 @@ void clearSreen(SDL_Surface *surface)
 
 void drawVertLine(SDL_Surface *surface, s32 x, s32 y1, s32 y2, s32 color)
 {
-	s32 yi;
-	s32 yf;	
+	s32 yi = 0;
+	s32 yf = 0;	
 
 	if(y1 < y2) {
 		yi = y1;
@@ -41,8 +41,8 @@ void drawVertLine(SDL_Surface *surface, s32 x, s32 y1, s32 y2, s32 color)
 
 void drawHorLine(SDL_Surface *surface, s32 x1, s32 x2, s32 y, s32 color)
 {
-	s32 xi;
-	s32 xf;	
+	s32 xi = 0;
+	s32 xf = 0;	
 
 	if(x1 < x2) {
 		xi = x1;
@@ -60,10 +60,10 @@ void drawHorLine(SDL_Surface *surface, s32 x1, s32 x2, s32 y, s32 color)
 
 void drawSlopedLine(SDL_Surface *surface, s32 x1, s32 y1, s32 x2, s32 y2, s32 color)
 {
-	s32 xi;
-	s32 xf;	
-	s32 rise, run;
-	s32 y, b;
+	s32 xi = 0;
+	s32 xf = 0;	
+	s32 rise = 0, run = 0;
+	s32 y = 0, b = 0;
 	float m;
 
 	rise = y2-y1;

@@ -3,10 +3,11 @@
 #include <SDL2/SDL.h>
 #include "types.h"
 
-#define BOX_X_SIZE      32
-#define BOX_Y_SIZE      32
-#define SCREEN_WIDTH    640
-#define SCREEN_HEIGHT   480
+constexpr int SCREEN_WIDTH = 640;
+constexpr int SCREEN_HEIGHT = 480;
+constexpr int TOTAL_PIXELS = SCREEN_WIDTH * SCREEN_HEIGHT;
+constexpr int BOX_X_SIZE = 32;
+constexpr int BOX_Y_SIZE = 32;
 
 void drawPixel(SDL_Surface *surface, s32 x, s32 y, s32 color);
 void clearSreen(SDL_Surface *surface);

@@ -1,7 +1,7 @@
-SRC=src/graphics.c \
-	src/map.c \
- 	src/misc.c \
-	src/player.c
+SRC=src/graphics.cpp \
+	src/map.cpp \
+ 	src/misc.cpp \
+	src/player.cpp
 
 OBJ=bin/graphics.o \
 	bin/map.o \
@@ -25,11 +25,13 @@ endif
 
 WARNINGS=-Wall
 
+CPP_VERSION=-std=c++11
+
 all: 
-	gcc -c $(SRC) $(INCLUDES) $(WARNINGS)
+	clang++ -g -c $(SRC) $(INCLUDES) $(WARNINGS) $(CPP_VERSION)
 	ls bin>/dev/null||mkdir bin
 	mv *.o ./bin
-	gcc src/fps.c $(OBJ) $(LIBS) $(INCLUDES) -o bin/fps $(WARNINGS)
+	clang++ -g src/fps.cpp $(OBJ) $(LIBS) $(INCLUDES) -o bin/fps $(WARNINGS) $(CPP_VERSION)
 clean:
 	rm -rf *.o fps
 	rm -rf bin

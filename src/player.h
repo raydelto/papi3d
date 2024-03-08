@@ -3,7 +3,8 @@
 #include <SDL2/SDL.h>
 #include "types.h"
 
-struct pl {
+struct pl
+{
     FP xpos, ypos;
     FP dx, dy;
     s16 angle;

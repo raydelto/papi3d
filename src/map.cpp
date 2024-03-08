@@ -10,16 +10,18 @@ void drawMap(SDL_Surface *surface, u8 m[15][20])
     u32 j = 0;
     u32 x = 0;
     u32 y = 0;
- 
-    while(i<SCREEN_HEIGHT/BOX_Y_SIZE) {
-        j=0;
-        while(j<SCREEN_WIDTH/BOX_X_SIZE) {
-            if(m[i][j])
+
+    while (i < SCREEN_HEIGHT / BOX_Y_SIZE)
+    {
+        j = 0;
+        while (j < SCREEN_WIDTH / BOX_X_SIZE)
+        {
+            if (m[i][j])
                 drawBox(surface, x, y);
-            x+=BOX_X_SIZE;
+            x += BOX_X_SIZE;
             j++;
         }
-        y+=BOX_Y_SIZE-1;
+        y += BOX_Y_SIZE - 1;
         i++;
     }
 }

@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include "types.h"
 #include "graphics.h"
+#include <string.h>
 
 void drawPixel(SDL_Surface *surface, s32 x, s32 y, s32 color)
 {

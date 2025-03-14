@@ -1,3 +1,7 @@
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
@@ -28,7 +32,7 @@ u8 map[15][20] = {
 extern FP COS[360];
 extern FP SIN[360];
 
-s32 main(void)
+int GameMain()
 {
     u8 view = 0;
     s16 quit = 0;
@@ -118,3 +122,21 @@ s32 main(void)
 
     return 0;
 }
+
+int main(int argc, char *argv[])
+{
+    GameMain();
+    return 0;
+}
+
+#ifdef _WIN32
+int WINAPI WinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR lpCmdLine,
+    int nShowCmd)
+{
+    return GameMain();
+}
+
+#endif

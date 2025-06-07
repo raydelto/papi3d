@@ -9,7 +9,7 @@ void drawPixel(SDL_Surface *surface, s32 x, s32 y, s32 color)
 {
 
 	u32 offset = SCREEN_WIDTH * y + x;
-	if (offset > TOTAL_PIXELS)
+	if (offset >= TOTAL_PIXELS)
 	{
 		return;
 	}

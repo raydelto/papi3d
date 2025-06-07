@@ -112,6 +112,11 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
                 hit = 1;
         }
 
+        if(rayDistance == 0)
+        {
+            rayDistance = FLOAT_TO_FP(0.001); // Prevent division by zero
+        }
+
         if (view)
         {
             drawLine(surface, FP_TO_INT(p->xpos), FP_TO_INT(p->ypos),

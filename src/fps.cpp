@@ -115,7 +115,9 @@ int GameMain()
 
         end = SDL_GetTicks();
         SDL_UpdateWindowSurface(window);
-        SDL_Delay(16 - (start - end));
+        u32 frameTime = end - start;
+        if (frameTime < 16)
+            SDL_Delay(16 - frameTime);
     }
 
     SDL_Quit();

@@ -14,6 +14,7 @@ void drawMap(SDL_Surface *surface, u8 m[15][20])
     while (i < SCREEN_HEIGHT / BOX_Y_SIZE)
     {
         j = 0;
+        x = 0;
         while (j < SCREEN_WIDTH / BOX_X_SIZE)
         {
             if (m[i][j])
@@ -21,7 +22,7 @@ void drawMap(SDL_Surface *surface, u8 m[15][20])
             x += BOX_X_SIZE;
             j++;
         }
-        y += BOX_Y_SIZE - 1;
+        y += BOX_Y_SIZE;
         i++;
     }
 }

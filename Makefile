@@ -26,6 +26,7 @@ LIBS= -L/opt/homebrew/opt/sdl2/lib \
 
 INCLUDES=-I/opt/homebrew/opt/sdl2/include \
 		-I/usr/local/include
+
 else # Windows
 	LIBS = -lSDL2 -LC:\msys64\mingw64\lib -mconsole \
 	  -lgdi32
@@ -38,12 +39,12 @@ clean:
 
 endif
 
-all: 
-	$(CXX) -g -c $(SRC) $(INCLUDES) $(WARNINGS) $(CPP_VERSION)
-	$(CXX) -g src/fps.cpp $(OBJ) $(LIBS) $(INCLUDES) -o bin/fps $(WARNINGS) $(CPP_VERSION)
-
-
 WARNINGS=-Wall
 
 CPP_VERSION=-std=c++11
 
+all: 
+	$(CXX) -g -c $(SRC) $(INCLUDES) $(WARNINGS) $(CPP_VERSION)
+	ls bin>/dev/null||mkdir bin
+	mv *.o ./bin
+	$(CXX) -g src/fps.cpp bin/*.o $(LIBS) $(INCLUDES) -o bin/fps $(WARNINGS) $(CPP_VERSION)

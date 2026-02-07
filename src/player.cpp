@@ -108,7 +108,10 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
                 side = 1;
             }
 
-            if (m[FP_TO_INT(tileY)][FP_TO_INT(tileX)] != 0)
+            // Bounds check to prevent out-of-bounds array access
+            int tx = FP_TO_INT(tileX);
+            int ty = FP_TO_INT(tileY);
+            if (tx < 0 || tx >= 20 || ty < 0 || ty >= 15 || m[ty][tx] != 0)
                 hit = 1;
         }
 
@@ -126,6 +129,11 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
         }
         else
         {
+            if(FP_TO_INT(rayDistance) == 0)
+            {
+                printf("FP_TO_INT(rayDistance) == 0)!!\n");
+                break;
+            }
             lHeight = DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), rayDistance);
             lStart = FP_TO_INT(DIV_FP(-lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));
             lEnd = FP_TO_INT(DIV_FP(lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));

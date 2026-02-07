@@ -64,24 +64,24 @@ int GameMain()
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_w:
-                    p.xpos += MUL_FP(p.dx, COS[p.angle % 360]);
-                    p.ypos += MUL_FP(p.dy, SIN[p.angle % 360]);
+                    p.xpos += MUL_FP(p.dx, COS[p.angle]);
+                    p.ypos += MUL_FP(p.dy, SIN[p.angle]);
                     break;
                 case SDLK_s:
-                    p.xpos -= MUL_FP(p.dx, COS[p.angle % 360]);
-                    p.ypos -= MUL_FP(p.dy, SIN[p.angle % 360]);
+                    p.xpos -= MUL_FP(p.dx, COS[p.angle]);
+                    p.ypos -= MUL_FP(p.dy, SIN[p.angle]);
                     break;
                 case SDLK_a:
-                    p.angle -= 1;
-                    p.dx = COS[p.angle % 360];
-                    p.dy = SIN[p.angle % 360];
+                    p.angle = (p.angle - 1 + 360) % 360;
+                    p.dx = COS[p.angle];
+                    p.dy = SIN[p.angle];
                     p.camX = MUL_FP(COS[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
                     p.camY = MUL_FP(SIN[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
                     break;
                 case SDLK_d:
-                    p.angle += 1;
-                    p.dx = COS[p.angle % 360];
-                    p.dy = SIN[p.angle % 360];
+                    p.angle = (p.angle + 1) % 360;
+                    p.dx = COS[p.angle];
+                    p.dy = SIN[p.angle];
                     p.camX = MUL_FP(COS[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
                     p.camY = MUL_FP(SIN[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
                     break;

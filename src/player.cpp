@@ -35,7 +35,7 @@ void drawPlayer(SDL_Surface *surface, PLAYER *p)
 
 void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
 {
-    u8 hit = 0, side = 0;
+    u8 hit = 0;
     FP stepX, stepY;
     FP tileDeltaX, tileDeltaY;
     FP lengthX, lengthY;
@@ -115,14 +115,12 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
                 rayDistance = lengthX;
                 lengthX += tileDeltaX;
                 tileX += stepX;
-                side = 0;
             }
             else
             {
                 rayDistance = lengthY;
                 lengthY += tileDeltaY;
                 tileY += stepY;
-                side = 1;
             }
 
             // Bounds check to prevent out-of-bounds array access

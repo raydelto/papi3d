@@ -6,9 +6,10 @@
 #include "player.h"
 #include "graphics.h"
 #include "pfloat.h"
+#include "constants.h"
 
-extern FP COS[360];
-extern FP SIN[360];
+extern FP gCOS[360];
+extern FP gSIN[360];
 
 void initPlayer(PLAYER *p)
 {

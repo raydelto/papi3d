@@ -6,5 +6,3 @@
 #define DIV_FP(a, b) ((FP)(((s64)(a) << FRACTIONAL_BITS) / (b)))
 #define FP_TO_INT(a) ((s32)(a) >> FRACTIONAL_BITS)
 #define FP_TO_FLOAT(c) ((c) / static_cast<float>(1 << FRACTIONAL_BITS))
-
-void populateTables(void);

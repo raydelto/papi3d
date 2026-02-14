@@ -4,3 +4,4 @@ bin
 build
 SDL
 fps
+.DS_Store

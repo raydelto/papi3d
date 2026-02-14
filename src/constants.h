@@ -1,5 +1,5 @@
 #pragma once
-
+#include "pfloat.h"
 
 constexpr int MAP_HEIGHT = 15;
 constexpr int MAP_WIDTH = 20;

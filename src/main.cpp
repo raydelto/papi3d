@@ -2,16 +2,15 @@
 #include <windows.h>
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL2/SDL.h>
-#include <math.h>
-#include "types.h"
+#include "constants.h"
 #include "graphics.h"
 #include "map.h"
 #include "player.h"
-#include "pfloat.h"
-#include "constants.h"
+#include "types.h"
+#include <SDL2/SDL.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int GameMain()
 {
@@ -26,7 +25,8 @@ int GameMain()
     populateTables();
 
     SDL_Init(SDL_INIT_VIDEO);
-    window = SDL_CreateWindow("Papi3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Papi3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,
+                              SDL_WINDOW_SHOWN);
     surface = SDL_GetWindowSurface(window);
 
     initPlayer(&p);
@@ -44,7 +44,7 @@ int GameMain()
             {
                 FP newX, newY;
                 FP moveSpeed = FLOAT_TO_FP(5); // Movement speed
-                
+
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_w: // Move forward (in direction player is facing)
@@ -177,11 +177,7 @@ int main(int argc, char *argv[])
 }
 
 #ifdef _WIN32
-int WINAPI WinMain(
-    HINSTANCE hInstance,
-    HINSTANCE hPrevInstance,
-    LPSTR lpCmdLine,
-    int nShowCmd)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
     return GameMain();
 }

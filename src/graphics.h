@@ -1,9 +1,9 @@
 #pragma once
 
+#include "types.h"
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
-#include "types.h"
 
 constexpr int SCREEN_WIDTH = 640;
 constexpr int SCREEN_HEIGHT = 480;

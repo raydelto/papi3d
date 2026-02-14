@@ -1,12 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "player.h"
+#include "constants.h"
+#include "graphics.h"
+#include "types.h"
 #include <SDL2/SDL.h>
 #include <math.h>
-#include "types.h"
-#include "player.h"
-#include "graphics.h"
-#include "pfloat.h"
-#include "constants.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 // Check if a position collides with a wall (with radius buffer)
 bool canMoveTo(int pixelX, int pixelY)
@@ -16,17 +15,17 @@ bool canMoveTo(int pixelX, int pixelY)
     int maxX = (pixelX + PLAYER_RADIUS) / BOX_X_SIZE;
     int minY = (pixelY - PLAYER_RADIUS) / BOX_Y_SIZE;
     int maxY = (pixelY + PLAYER_RADIUS) / BOX_Y_SIZE;
-    
+
     // Bounds check - must be fully inside map
     if (minX < 0 || maxX >= MAP_WIDTH || minY < 0 || maxY >= MAP_HEIGHT)
         return false;
-    
+
     // Also check pixel-level bounds to stay away from edges
     if (pixelX - PLAYER_RADIUS < BOX_X_SIZE || pixelX + PLAYER_RADIUS >= (MAP_WIDTH - 1) * BOX_X_SIZE)
         return false;
     if (pixelY - PLAYER_RADIUS < BOX_Y_SIZE || pixelY + PLAYER_RADIUS >= (MAP_HEIGHT - 1) * BOX_Y_SIZE)
         return false;
-    
+
     // Check all tiles the player's bounding box overlaps
     for (int ty = minY; ty <= maxY; ty++)
     {
@@ -44,8 +43,8 @@ void initPlayer(PLAYER *p)
     p->dx = FLOAT_TO_FP(1);
     p->dy = FLOAT_TO_FP(0);
     // Start in a safe open area (tile 1,8 = row 8, col 1 which is empty)
-    p->xpos = FLOAT_TO_FP(48);   // 1.5 tiles from left = 48 pixels
-    p->ypos = FLOAT_TO_FP(272);  // 8.5 tiles from top = 272 pixels
+    p->xpos = FLOAT_TO_FP(48);  // 1.5 tiles from left = 48 pixels
+    p->ypos = FLOAT_TO_FP(272); // 8.5 tiles from top = 272 pixels
     p->camX = 0;
     p->camY = FLOAT_TO_FP(0.7);
     p->angle = 0;
@@ -100,7 +99,8 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], bool view)
             continue;
         }
 
-        cDist = 2 * DIV_FP(FLOAT_TO_FP(i), FLOAT_TO_FP(SCREEN_WIDTH - 1)) - FLOAT_TO_FP(1); // Calculate length along the camera plane for ray intersection
+        cDist = 2 * DIV_FP(FLOAT_TO_FP(i), FLOAT_TO_FP(SCREEN_WIDTH - 1)) -
+                FLOAT_TO_FP(1); // Calculate length along the camera plane for ray intersection
 
         rDirX = pDirX + MUL_FP(cPlaneX, cDist);
         rDirY = pDirY + MUL_FP(cPlaneY, cDist);
@@ -169,8 +169,7 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], bool view)
         {
             drawLine(surface, FP_TO_INT(p->xpos), FP_TO_INT(p->ypos),
                      (FP_TO_INT(p->xpos) + FP_TO_INT(MUL_FP(rDirX, rayDistance * BOX_X_SIZE))),
-                     (FP_TO_INT(p->ypos) + FP_TO_INT(MUL_FP(rDirY, rayDistance * BOX_Y_SIZE))),
-                     0x00FFFF00);
+                     (FP_TO_INT(p->ypos) + FP_TO_INT(MUL_FP(rDirY, rayDistance * BOX_Y_SIZE))), 0x00FFFF00);
         }
         else
         {

@@ -13,43 +13,6 @@
 #include "pfloat.h"
 #include "constants.h"
 
-extern FP gCOS[360];
-extern FP gSIN[360];
-
-// Player collision radius in pixels - must be large enough to keep player away from walls
-#define PLAYER_RADIUS 12
-
-// Check if a position collides with a wall (with radius buffer)
-bool canMoveTo(int pixelX, int pixelY)
-{
-    // Check all four corners of player bounding box
-    int minX = (pixelX - PLAYER_RADIUS) / BOX_X_SIZE;
-    int maxX = (pixelX + PLAYER_RADIUS) / BOX_X_SIZE;
-    int minY = (pixelY - PLAYER_RADIUS) / BOX_Y_SIZE;
-    int maxY = (pixelY + PLAYER_RADIUS) / BOX_Y_SIZE;
-    
-    // Bounds check - must be fully inside map
-    if (minX < 0 || maxX >= MAP_WIDTH || minY < 0 || maxY >= MAP_HEIGHT)
-        return false;
-    
-    // Also check pixel-level bounds to stay away from edges
-    if (pixelX - PLAYER_RADIUS < BOX_X_SIZE || pixelX + PLAYER_RADIUS >= (MAP_WIDTH - 1) * BOX_X_SIZE)
-        return false;
-    if (pixelY - PLAYER_RADIUS < BOX_Y_SIZE || pixelY + PLAYER_RADIUS >= (MAP_HEIGHT - 1) * BOX_Y_SIZE)
-        return false;
-    
-    // Check all tiles the player's bounding box overlaps
-    for (int ty = minY; ty <= maxY; ty++)
-    {
-        for (int tx = minX; tx <= maxX; tx++)
-        {
-            if (gMap[ty][tx] != 0)
-                return false; // Wall found
-        }
-    }
-    return true; // No collision
-}
-
 int GameMain()
 {
     u8 view = 0;
@@ -181,8 +144,6 @@ int GameMain()
                 }
             }
         }
-        // printf("Camera Plane: %d %f %f\n", p.angle, FP_TO_FLOAT(p.camX), FP_TO_FLOAT(p.camY));
-        // printf("Player Direction %d %f %f\n", p.angle, FP_TO_FLOAT(p.dx), FP_TO_FLOAT(p.dy));
 
         clearSreen(surface);
 
@@ -200,7 +161,9 @@ int GameMain()
 
         end = SDL_GetTicks();
         SDL_UpdateWindowSurface(window);
-        SDL_Delay(16 - (start - end));
+
+        // Limit to a max of 60 Frames per seconds (FPS)
+        SDL_Delay(PER_FRAME_MILLIS_IN_60_FPS - (start - end));
     }
 
     SDL_Quit();
@@ -210,8 +173,7 @@ int GameMain()
 
 int main(int argc, char *argv[])
 {
-    GameMain();
-    return 0;
+    return GameMain();
 }
 
 #ifdef _WIN32

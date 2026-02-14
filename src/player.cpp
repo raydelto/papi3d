@@ -14,8 +14,9 @@ void initPlayer(PLAYER *p)
 {
     p->dx = FLOAT_TO_FP(1);
     p->dy = FLOAT_TO_FP(0);
-    p->xpos = FLOAT_TO_FP(100);
-    p->ypos = FLOAT_TO_FP(300);
+    // Start in a safe open area (tile 1,8 = row 8, col 1 which is empty)
+    p->xpos = FLOAT_TO_FP(48);   // 1.5 tiles from left = 48 pixels
+    p->ypos = FLOAT_TO_FP(272);  // 8.5 tiles from top = 272 pixels
     p->camX = 0;
     p->camY = FLOAT_TO_FP(0.7);
     p->angle = 0;
@@ -56,6 +57,20 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
         tileX = FLOAT_TO_FP(FP_TO_INT(p->xpos) / BOX_X_SIZE);
         tileY = FLOAT_TO_FP(FP_TO_INT(p->ypos) / BOX_Y_SIZE);
 
+        // Safety check: if player is inside a wall, skip rendering this frame
+        int playerTileX = FP_TO_INT(p->xpos) / BOX_X_SIZE;
+        int playerTileY = FP_TO_INT(p->ypos) / BOX_Y_SIZE;
+        if (playerTileX < 0 || playerTileX >= 20 || playerTileY < 0 || playerTileY >= 15)
+        {
+            i++;
+            continue;
+        }
+        if (m[playerTileY][playerTileX] != 0)
+        {
+            i++;
+            continue;
+        }
+
         cDist = 2 * DIV_FP(FLOAT_TO_FP(i), FLOAT_TO_FP(SCREEN_WIDTH - 1)) - FLOAT_TO_FP(1); // Calculate length along the camera plane for ray intersection
 
         rDirX = pDirX + MUL_FP(cPlaneX, cDist);
@@ -91,8 +106,10 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
         }
 
         hit = 0;
-        while (!hit)
+        int maxSteps = 50; // Prevent infinite loops
+        while (!hit && maxSteps > 0)
         {
+            maxSteps--;
             if (lengthX < lengthY)
             {
                 rayDistance = lengthX;
@@ -115,9 +132,10 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
                 hit = 1;
         }
 
-        if(rayDistance == 0)
+        // Ensure rayDistance has a minimum value to prevent rendering issues
+        if (rayDistance <= 0)
         {
-            rayDistance = FLOAT_TO_FP(0.001); // Prevent division by zero
+            rayDistance = FLOAT_TO_FP(0.1);
         }
 
         if (view)
@@ -129,10 +147,10 @@ void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
         }
         else
         {
-            if(FP_TO_INT(rayDistance) == 0)
+            // Clamp rayDistance to prevent division issues
+            if (rayDistance < FLOAT_TO_FP(0.1))
             {
-                printf("FP_TO_INT(rayDistance) == 0)!!\n");
-                break;
+                rayDistance = FLOAT_TO_FP(0.1);
             }
             lHeight = DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), rayDistance);
             lStart = FP_TO_INT(DIV_FP(-lHeight, FLOAT_TO_FP(2)) + DIV_FP(FLOAT_TO_FP(SCREEN_HEIGHT), FLOAT_TO_FP(2)));

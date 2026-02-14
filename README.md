@@ -15,14 +15,14 @@ A simple first-person ray-casting engine built in C++ using SDL2, similar to Wol
 ### Project Structure
 
 ```
-fps/
+/
 ├── src/                 # Game source code
 │   ├── main.cpp         # Main game loop
-│   ├── graphics.cpp    # Rendering functions
-│   ├── map.cpp         # Map rendering
-│   ├── player.cpp      # Player logic and ray-casting
-│   ├── pfloat.cpp      # Papi3D Float Implementation
-└   └── *.h             # Header files
+│   ├── graphics.cpp     # Rendering functions
+│   ├── map.cpp          # Map rendering
+│   ├── player.cpp       # Player logic and ray-casting
+│   ├── pfloat.h         # Papi3D Float Implementation
+└   └── constants.cpp    # App constants
 ```
 
 ### Controls
@@ -30,7 +30,7 @@ fps/
 - **W/S**: Move forward/backward
 - **A/D**: Turn left/right
 - **E**: Toggle between 2D map view and 3D view
-- **Q**: Quit the game
+- **Q** or **ESC**: Quit the game
 
 
 ## Technical Details

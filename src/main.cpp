@@ -15,7 +15,7 @@
 
 int GameMain()
 {
-    u8 view = 0;
+    bool view = false;
     bool quit = false;
     SDL_Window *window = nullptr;
     SDL_Surface *surface;
@@ -67,7 +67,7 @@ int GameMain()
                         p.ypos = newY;
                     }
                     break;
-                case SDLK_s: // Move backward (opposite of facing direction)
+                case SDLK_s: // Move backwards
                     newX = p.xpos - MUL_FP(p.dx, moveSpeed);
                     newY = p.ypos - MUL_FP(p.dy, moveSpeed);
                     if (canMoveTo(FP_TO_INT(newX), FP_TO_INT(newY)))
@@ -84,7 +84,7 @@ int GameMain()
                         p.ypos = newY;
                     }
                     break;
-                case SDLK_a: // Strafe left (perpendicular to facing direction)
+                case SDLK_a: // Move left
                     newX = p.xpos + MUL_FP(p.dy, moveSpeed);
                     newY = p.ypos - MUL_FP(p.dx, moveSpeed);
                     if (canMoveTo(FP_TO_INT(newX), FP_TO_INT(newY)))
@@ -101,7 +101,7 @@ int GameMain()
                         p.ypos = newY;
                     }
                     break;
-                case SDLK_d: // Strafe right (perpendicular to facing direction)
+                case SDLK_d: // Move right
                     newX = p.xpos - MUL_FP(p.dy, moveSpeed);
                     newY = p.ypos + MUL_FP(p.dx, moveSpeed);
                     if (canMoveTo(FP_TO_INT(newX), FP_TO_INT(newY)))
@@ -122,18 +122,18 @@ int GameMain()
                     p.angle = (p.angle - 3 + 360) % 360;
                     p.dx = gCOS[p.angle];
                     p.dy = gSIN[p.angle];
-                    p.camX = MUL_FP(gCOS[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
-                    p.camY = MUL_FP(gSIN[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
+                    p.camX = MUL_FP(gCOS[(p.angle + 90) % 360], FLOAT_TO_FP(FOV));
+                    p.camY = MUL_FP(gSIN[(p.angle + 90) % 360], FLOAT_TO_FP(FOV));
                     break;
                 case SDLK_RIGHT: // Rotate right
-                    p.angle = (p.angle + 3) % 360;
+                    p.angle = (p.angle + ANGLE_STEP) % 360;
                     p.dx = gCOS[p.angle];
                     p.dy = gSIN[p.angle];
-                    p.camX = MUL_FP(gCOS[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
-                    p.camY = MUL_FP(gSIN[(p.angle + 90) % 360], FLOAT_TO_FP(0.7));
+                    p.camX = MUL_FP(gCOS[(p.angle + 90) % 360], FLOAT_TO_FP(FOV));
+                    p.camY = MUL_FP(gSIN[(p.angle + 90) % 360], FLOAT_TO_FP(FOV));
                     break;
                 case SDLK_e:
-                    view ^= 0x01;
+                    view = !view;
                     break;
                 case SDLK_ESCAPE:
                 case SDLK_q:

@@ -127,5 +127,3 @@ void drawBox(SDL_Surface *surface, s32 x, s32 y)
 	drawVertLine(surface, x, y, y + BOX_Y_SIZE, 0x00FFFFFF);
 	drawVertLine(surface, x + BOX_X_SIZE, y, y + BOX_Y_SIZE, 0x00FFFFFF);
 }
-
-// SDL_MapRGBA(surface->format, 255, 0, 0, 255)

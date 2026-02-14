@@ -62,7 +62,7 @@ void drawPlayer(SDL_Surface *surface, PLAYER *p)
     }
 }
 
-void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], u8 view)
+void drawRays(SDL_Surface *surface, PLAYER *p, u8 m[15][20], bool view)
 {
     u8 hit = 0;
     FP stepX, stepY;

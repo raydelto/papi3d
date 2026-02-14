@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL2/SDL.h>
+#include <cmath>
 #include "types.h"
-#include "misc.h"
+#include "pfloat.h"
 
 FP COS[360];
 FP SIN[360];

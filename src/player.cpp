@@ -5,7 +5,7 @@
 #include "types.h"
 #include "player.h"
 #include "graphics.h"
-#include "misc.h"
+#include "pfloat.h"
 
 extern FP COS[360];
 extern FP SIN[360];

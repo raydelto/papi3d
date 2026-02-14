@@ -17,11 +17,11 @@ A simple first-person ray-casting engine built in C++ using SDL2, similar to Wol
 ```
 fps/
 ├── src/                 # Game source code
-│   ├── fps.cpp         # Main game loop
+│   ├── main.cpp         # Main game loop
 │   ├── graphics.cpp    # Rendering functions
 │   ├── map.cpp         # Map rendering
 │   ├── player.cpp      # Player logic and ray-casting
-│   ├── misc.cpp        # Utility functions
+│   ├── pfloat.cpp      # Papi3D Float Implementation
 └   └── *.h             # Header files
 ```
 

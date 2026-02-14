@@ -2,12 +2,12 @@ CXX=g++
 
 SRC=src/graphics.cpp \
 	src/map.cpp \
- 	src/misc.cpp \
+ 	src/pfloat.cpp \
 	src/player.cpp
 
 OBJ=graphics.o \
 	map.o \
-	misc.o \
+	pfloat.o \
 	player.o
 
 WARNINGS=-Wall

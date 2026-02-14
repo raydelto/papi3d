@@ -10,7 +10,7 @@
 #include "graphics.h"
 #include "map.h"
 #include "player.h"
-#include "misc.h"
+#include "pfloat.h"
 
 u8 map[15][20] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},

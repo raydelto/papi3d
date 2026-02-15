@@ -2,7 +2,7 @@
 
 ![Navigating the maze](./ScreenShot/papi3d_maze.png) ![Navigating the map](./ScreenShot/papi3d_map.png)
 
-A simple first-person ray-casting engine built in C++ using SDL2, similar to Wolfenstein 3D by ID Software.
+A simple first-person ray-casting engine built in C++ using SDL2.
 
 ## Features
 
@@ -11,8 +11,6 @@ A simple first-person ray-casting engine built in C++ using SDL2, similar to Wol
 - Toggle between 2D map view and 3D perspective (E key)
 - Distance-based lighting effects
 - Fixed-point arithmetic for performance
-
-
 
 ### Project Structure
 
@@ -41,7 +39,9 @@ A simple first-person ray-casting engine built in C++ using SDL2, similar to Wol
 - Ray-casting algorithm with DDA (Digital Differential Analyzer)
 - Software rendering directly to SDL2 surface
 
+## Next steps
+- We will decouple the project from SDL2 to make it easier to port to more platforms, including those with limited hardware.
+
 ## License
 
 This project uses SDL2, which is licensed under the zlib license. See the SDL2 source code for details.
-

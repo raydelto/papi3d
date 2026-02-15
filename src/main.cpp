@@ -163,7 +163,11 @@ int GameMain()
         SDL_UpdateWindowSurface(window);
 
         // Limit to a max of 60 Frames per seconds (FPS)
-        SDL_Delay(PER_FRAME_MILLIS_IN_60_FPS - (start - end));
+        u32 elapsed = start - end;
+        if (elapsed < PER_FRAME_MILLIS_IN_60_FPS)
+        {
+            SDL_Delay(PER_FRAME_MILLIS_IN_60_FPS - elapsed);
+        }
     }
 
     SDL_Quit();

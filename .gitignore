@@ -5,3 +5,10 @@ build
 SDL
 fps
 .DS_Store
+obj
+
+# Visual Studio Specific Project Files
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.user

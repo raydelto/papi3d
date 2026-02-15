@@ -1,6 +1,8 @@
 # FPS Ray-Casting Engine
 
-A simple first-person ray-casting engine built in C++ using SDL2, similar to Wolfenstein 3D.
+![Navigating the maze](./ScreenShot/papi3d_maze.png) ![Navigating the map](./ScreenShot/papi3d_map.png)
+
+A simple first-person ray-casting engine built in C++ using SDL2, similar to Wolfenstein 3D by ID Software.
 
 ## Features
 

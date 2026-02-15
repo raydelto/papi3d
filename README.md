@@ -1,8 +1,8 @@
-# FPS Ray-Casting Engine
+# Simple Ray-Casting Engine
 
 ![Navigating the maze](./ScreenShot/papi3d_maze.png) ![Navigating the map](./ScreenShot/papi3d_map.png)
 
-A simple first-person ray-casting engine built in C++ using SDL2.
+A simple first-person ray-casting engine built in C++ using SDL2. The idea is to make a light platform agnostic minimalistic fps engine that can run on virtually any hardware.
 
 ## Features
 
